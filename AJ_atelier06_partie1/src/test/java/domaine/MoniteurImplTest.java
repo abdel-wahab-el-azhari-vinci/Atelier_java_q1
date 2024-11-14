@@ -224,7 +224,78 @@ private int numeroSemaine;
 
   }
 @Test
-  void ajouter11(){
+  void supprimer11(){
+
+    int numerSemaine1=4;
+    Stage stage1= new StageStub(numerSemaine1,sport,moniteur);
+    amenerALEtat(4,moniteur);
+
+    assertAll(
+
+            ()->assertFalse( moniteur.supprimerStage(stage1)),
+
+
+            ()->  assertEquals(4,moniteur.nombreDeStages()),
+            () ->     assertTrue(!moniteur.contientStage(stage1))
+    );
 
   }
+
+  @Test
+    void ajouter12(){
+        MoniteurImpl moniteur1=new MoniteurImpl("abdel");
+        amenerALEtat(3,moniteur);
+      int numerSemaine1=4;
+      Stage stage1= new StageStub(numerSemaine1,sport,moniteur);
+      moniteur.ajouterStage(stage1);
+      assertAll(
+
+              ()->assertFalse( moniteur1.ajouterStage(stage1)),
+
+
+              ()->  assertEquals(4,moniteur.nombreDeStages()),
+              () ->     assertTrue(!moniteur1.contientStage(stage1))
+      );
+
+  }
+
+
+    @Test
+    void ajouter13(){
+        amenerALEtat(4,moniteur);
+        int numerSemaine1=5;
+        Stage stage1= new StageStub(numerSemaine1,sport,moniteur);
+
+        assertAll(
+
+                ()->assertTrue( moniteur.ajouterStage(stage1)),
+
+
+                ()->  assertEquals(5,moniteur.nombreDeStages()),
+                () ->     assertTrue(moniteur.contientStage(stage1))
+        );
+
+    }
+
+    @Test
+    void ajouter14(){
+
+        amenerALEtat(4,moniteur);
+
+        int numerSemaine1=5;
+        Sport sport1 = new SportStub(false);
+        Stage stage1= new StageStub(numerSemaine1,sport1,null);
+
+
+        assertAll(
+
+                ()->assertFalse( moniteur.ajouterStage(stage1)),
+
+
+                ()->  assertEquals(4,moniteur.nombreDeStages()),
+                () ->     assertTrue(!moniteur.contientStage(stage1))
+        );
+
+
+    }
 }
